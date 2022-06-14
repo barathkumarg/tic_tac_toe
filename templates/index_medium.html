@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic_Tac_Toe</title>
+<style>
+    .button {
+   border: 1px outset blue;
+   background-color: lightBlue;
+   height:50px;
+   width:50px;
+   cursor:pointer;
+}
+
+.button:hover {
+   background-color: white;
+   color:white;
+}
+div {
+    width: 100px;
+    height: 100px;
+
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+button:disabled {
+  color: black;
+}
+</style>
+</head>
+<body>
+
+<center>
+        <p>
+    <h1>* * * * TIC TAC TOE * * * *</h1>
+    <form action="{{url_for('decide')}}" method="POST">
+    <select name="myselect" id="myselect" onchange="this.form.submit()">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+    </select>
+</form>
+    </p>
+    <BR><BR>
+    Player - 'X'  Wins: <b style="color:green;">{{player[0]}}</b><br>
+    Computer - 'O'  Wins: <b style="color:green;">{{computer[0]}}</b><br>
+    <h4>Difficulty : Medium</h4>
+    <br>
+    <b style="color:red">
+            {% if msg== 'player' %}
+    Player wins !!!
+    {% elif msg == 'computer' %}
+    Computer wins
+    {% elif msg == 'ties' %}
+   Match tied
+    {% endif %}
+    </b>
+    <form action="{{url_for('medium')}}" method="POST">
+      <table>
+        {% for i in range(0, 3) %}
+        <tr>
+          {% for j in range(0, 3) %}
+          <td>
+            <button class="button" type="submit" name="choice" value="{{i*3+j}}" {% if maze[i][j]!='_' or msg=='computer' or msg=='player' %} disabled {% endif %}>
+                {% if maze[i][j]!='_' %}
+                {{maze[i][j]}}
+                {% endif %}
+            </button>
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+        <br>
+      <button type="submit" name="reset">Play again</button>
+    </form>
+</center>
+</body>
+</html>
+
+
+<script>
+
+</script>
